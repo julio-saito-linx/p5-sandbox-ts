@@ -1,39 +1,57 @@
+import _ from "lodash";
 import p5 from "p5";
+import { Ball } from "./objects/ball";
+import { getCanvasWidth, getCanvasHeight } from "./utils";
+
+function createBalls(p: p5) {
+  const balls: Ball[] = [];
+  const numbers = _.range(25, getCanvasWidth(p) - 50, 60);
+
+  for (let i = 0; i < numbers.length; i++) {
+    const xCenter = getCanvasWidth(p) / 2;
+    const yCenter = getCanvasHeight(p) / 2;
+    const r = numbers[i];
+
+    const ball = new Ball({
+      p,
+      x: xCenter,
+      y: yCenter,
+      r,
+      initialColor: i * 10,
+    });
+    balls.push(ball);
+  }
+
+  return balls;
+}
 
 /**
  * @param {p5} p
  */
 export const sketch = (p: p5) => {
-  const STROKE_SUB = -20;
+  let balls: Ball[] = [];
 
   p.setup = () => {
-    p.createCanvas(getCanvasWidth(), getCanvasHeight());
-    p.frameRate(60);
+    p.createCanvas(getCanvasWidth(p), getCanvasHeight(p));
+    p.frameRate(30);
+    balls = createBalls(p);
   };
 
   p.draw = () => {
-    p.background(50);
+    p.background(0);
 
-    const numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9].reverse();
-    for (let i = 0; i < numbers.length; i++) {
-      const num = numbers[i];
-      p.stroke(
-        num * 17 + STROKE_SUB,
-        num * 17 + STROKE_SUB,
-        num * 17 + STROKE_SUB
-      );
-      p.fill(num * 10, num * 10, num * 10);
-      p.ellipse(
-        getCanvasWidth() / 2,
-        getCanvasHeight() / 2,
-        getCanvasWidth() * 0.1 * num,
-        getCanvasWidth() * 0.1 * num
-      );
+    // paint balls
+    for (let i = balls.length - 1; i >= 0; i--) {
+      const ball = balls[i];
+      ball.changeColor();
+      ball.paint();
     }
   };
 
   p.windowResized = () => {
-    p.resizeCanvas(getCanvasWidth(), getCanvasHeight());
+    console.log("windowResized");
+    balls = createBalls(p);
+    p.resizeCanvas(getCanvasWidth(p), getCanvasHeight(p));
   };
 
   p.keyPressed = () => {
@@ -42,12 +60,4 @@ export const sketch = (p: p5) => {
       p.saveCanvas("sketch", "png");
     }
   };
-
-  function getCanvasWidth() {
-    return p.windowWidth - 40;
-  }
-
-  function getCanvasHeight() {
-    return p.windowHeight - 20;
-  }
 };
