@@ -1,11 +1,12 @@
 import p5 from "p5";
-import { getCanvasWidth, getCanvasHeight } from "../utils";
 
 export class Ball {
-  x: number;
-  y: number;
-  r: number;
   p: p5;
+
+  width: number;
+  height: number;
+  raid: number;
+
   stroke_subtractor: number;
   bgColor: number;
   bgColorVelocity: number = +5;
@@ -14,27 +15,27 @@ export class Ball {
 
   constructor({
     p,
-    x,
-    y,
-    r,
-    initialColor,
+    width,
+    height,
+    raid,
+    defaultBgColor,
   }: {
     p: p5;
-    x: number;
-    y: number;
-    r: number;
-    initialColor: number;
+    width: number;
+    height: number;
+    raid: number;
+    defaultBgColor: number;
   }) {
     this.p = p;
 
-    this.x = x;
-    this.y = y;
-    this.r = r;
+    this.width = width;
+    this.height = height;
+    this.raid = raid;
     this.stroke_subtractor = -30;
-    this.bgColor = initialColor;
+    this.bgColor = defaultBgColor;
   }
 
-  changeColor() {
+  changeColorWithVelocity() {
     // change direction
     if (this.bgColor < 0) {
       this.bgColorVelocity = this.BG_COLOR_VELOCITY_UP;
@@ -53,6 +54,6 @@ export class Ball {
       (this.bgColor + this.stroke_subtractor) % 255
     );
     this.p.fill(this.bgColor, this.bgColor, this.bgColor);
-    this.p.ellipse(this.x, this.y, this.r);
+    this.p.ellipse(this.width, this.height, this.raid);
   }
 }

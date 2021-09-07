@@ -5,7 +5,11 @@ import { getCanvasWidth, getCanvasHeight } from "./utils";
 
 function createBalls(p: p5) {
   const balls: Ball[] = [];
-  const numbers = _.range(25, getCanvasWidth(p) - 50, 60);
+  const numbers = _.range(
+    25,
+    p.min(getCanvasWidth(p) - 50, getCanvasHeight(p) - 50),
+    60
+  );
 
   for (let i = 0; i < numbers.length; i++) {
     const xCenter = getCanvasWidth(p) / 2;
@@ -14,10 +18,10 @@ function createBalls(p: p5) {
 
     const ball = new Ball({
       p,
-      x: xCenter,
-      y: yCenter,
-      r,
-      initialColor: i * -22,
+      width: xCenter,
+      height: yCenter,
+      raid: r,
+      defaultBgColor: i * -22,
     });
     balls.push(ball);
   }
@@ -43,7 +47,7 @@ export const sketch = (p: p5) => {
     // paint balls
     for (let i = balls.length - 1; i >= 0; i--) {
       const ball = balls[i];
-      ball.changeColor();
+      ball.changeColorWithVelocity();
       ball.paint();
     }
   };
