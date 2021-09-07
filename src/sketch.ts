@@ -4,21 +4,36 @@ import p5 from "p5";
  * @param {p5} p
  */
 export const sketch = (p: p5) => {
-  const canvasWidth = p.windowWidth - 40;
-  const canvasHeight = p.windowHeight - 20;
+  const STROKE_SUB = -20;
+
   p.setup = () => {
-    p.createCanvas(canvasWidth, canvasHeight);
-    p.frameRate(30);
+    p.createCanvas(getCanvasWidth(), getCanvasHeight());
+    p.frameRate(60);
   };
 
   p.draw = () => {
     p.background(50);
 
-    const numbers = [0, 1, 2, 3, 4, 5, 6].reverse();
+    const numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9].reverse();
     for (let i = 0; i < numbers.length; i++) {
-      const element = numbers[i];
-      p.ellipse(canvasWidth / 2, canvasHeight / 2, 50 * element, 50 * element);
+      const num = numbers[i];
+      p.stroke(
+        num * 17 + STROKE_SUB,
+        num * 17 + STROKE_SUB,
+        num * 17 + STROKE_SUB
+      );
+      p.fill(num * 10, num * 10, num * 10);
+      p.ellipse(
+        getCanvasWidth() / 2,
+        getCanvasHeight() / 2,
+        getCanvasWidth() * 0.1 * num,
+        getCanvasWidth() * 0.1 * num
+      );
     }
+  };
+
+  p.windowResized = () => {
+    p.resizeCanvas(getCanvasWidth(), getCanvasHeight());
   };
 
   p.keyPressed = () => {
@@ -27,4 +42,12 @@ export const sketch = (p: p5) => {
       p.saveCanvas("sketch", "png");
     }
   };
+
+  function getCanvasWidth() {
+    return p.windowWidth - 40;
+  }
+
+  function getCanvasHeight() {
+    return p.windowHeight - 20;
+  }
 };
