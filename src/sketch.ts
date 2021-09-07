@@ -17,7 +17,7 @@ function createBalls(p: p5) {
       x: xCenter,
       y: yCenter,
       r,
-      initialColor: i * 10,
+      initialColor: i * -22,
     });
     balls.push(ball);
   }

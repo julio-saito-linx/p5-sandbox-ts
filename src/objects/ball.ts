@@ -9,7 +9,7 @@ export class Ball {
   stroke_subtractor: number;
   bgColor: number;
   bgColorVelocity: number = +5;
-  BG_COLOR_VELOCITY_UP: number = +25;
+  BG_COLOR_VELOCITY_UP: number = +10;
   BG_COLOR_VELOCITY_DOWN: number = -5;
 
   constructor({
@@ -30,7 +30,7 @@ export class Ball {
     this.x = x;
     this.y = y;
     this.r = r;
-    this.stroke_subtractor = -20;
+    this.stroke_subtractor = -30;
     this.bgColor = initialColor;
   }
 
