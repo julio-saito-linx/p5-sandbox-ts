@@ -1,5 +1,7 @@
 # p5-typescript-starter
 
+- https: //www.youtube.com/watch?v=8j0UDiN7my4;
+
 A bare-bones boilerplate for [p5.js](https://github.com/processing/p5.js) with [TypeScript](https://github.com/Microsoft/TypeScript) & [Parcel](https://github.com/parcel-bundler/parcel).
 
 ## Installation
