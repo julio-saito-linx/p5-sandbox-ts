@@ -4,3 +4,20 @@ body {
   justify-content: center;
   align-items: center;
 }
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#experiments {
+  display: none;
+}
+
+a {
+  color: blueviolet;
+  font-size: 1.3em;
+  padding: 0 0.5em;
+}
