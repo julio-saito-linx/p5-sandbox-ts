@@ -11,10 +11,16 @@ export class Ball {
   bgColor: number;
   defaultBgColor: number;
 
-  color_velocity: number = 10;
-  bgColorVelocity: number = -this.color_velocity;
-  BG_COLOR_VELOCITY_UP: number = +this.color_velocity;
-  BG_COLOR_VELOCITY_DOWN: number = -this.color_velocity;
+  color_velocity: number = 1;
+
+  bgColorRedVelocity: number = -this.color_velocity;
+  bgColorRed: number;
+
+  bgColorGreenVelocity: number = -this.color_velocity;
+  bgColorGreen: number;
+
+  bgColorBlueVelocity: number = -this.color_velocity;
+  bgColorBlue: number;
 
   constructor({
     p,
@@ -34,29 +40,54 @@ export class Ball {
     this.width = width;
     this.height = height;
     this.raid = raid;
-    this.stroke_subtractor = -10;
+    this.stroke_subtractor = -15;
     this.defaultBgColor = defaultBgColor;
     this.bgColor = defaultBgColor;
+    this.bgColorRed = defaultBgColor + 0;
+    this.bgColorGreen = defaultBgColor + 20;
+    this.bgColorBlue = defaultBgColor + 40;
   }
 
   changeColorWithVelocity() {
     // change direction
-    if (this.bgColor < -10) {
-      this.bgColor = 0;
-      this.bgColorVelocity = this.BG_COLOR_VELOCITY_UP;
-    } else if (this.bgColor >= 255) {
-      this.bgColorVelocity = this.BG_COLOR_VELOCITY_DOWN;
+    if (this.bgColorRed <= -60) {
+      this.bgColorRed = 0;
+      this.bgColorRedVelocity = this.bgColorRedVelocity * -1;
+    } else if (this.bgColorRed >= 255) {
+      this.bgColorRedVelocity = this.bgColorRedVelocity * -1;
+    }
+    if (this.bgColorGreen <= -50) {
+      this.bgColorGreen = 0;
+      this.bgColorGreenVelocity = this.bgColorGreenVelocity * -1;
+    } else if (this.bgColorGreen >= 255) {
+      this.bgColorGreenVelocity = this.bgColorGreenVelocity * -1;
+    }
+    if (this.bgColorBlue <= -40) {
+      this.bgColorBlue = 0;
+      this.bgColorBlueVelocity = this.bgColorBlueVelocity * -1;
+    } else if (this.bgColorBlue >= 255) {
+      this.bgColorBlueVelocity = this.bgColorBlueVelocity * -1;
     }
 
     // apply velocity on color
-    this.bgColor = this.bgColor + this.bgColorVelocity;
+    this.bgColorRed = this.bgColorRed + this.bgColorRedVelocity;
+    this.bgColorGreen = this.bgColorGreen + this.bgColorGreenVelocity;
+    this.bgColorBlue = this.bgColorBlue + this.bgColorBlueVelocity;
   }
 
   paint() {
-    const color = (this.bgColor + this.stroke_subtractor) % 255;
-
-    this.p.stroke(color + this.stroke_subtractor);
-    this.p.fill(color);
+    this.p.stroke(
+      this.bgColorRed + this.stroke_subtractor,
+      this.bgColorGreen + this.stroke_subtractor,
+      this.bgColorBlue + this.stroke_subtractor
+    );
+    this.p.fill(this.bgColorRed, this.bgColorGreen, this.bgColorBlue);
     this.p.ellipse(this.width, this.height, this.raid);
+
+    // console.log({
+    //   bgColorRed: this.bgColorRed,
+    //   bgColorGreen: this.bgColorGreen,
+    //   bgColorBlue: this.bgColorBlue,
+    // });
   }
 }

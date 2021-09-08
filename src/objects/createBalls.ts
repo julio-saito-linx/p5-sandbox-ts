@@ -8,11 +8,10 @@ export function createBalls(p: p5) {
   const raids = _.range(
     25,
     p.min(getCanvasWidth(p) - 50, getCanvasHeight(p) - 50),
-    20
+    30
   );
 
   const ballsCount = raids.length;
-  console.log({ ballsCount });
   const increment_color = 200 / ballsCount;
 
   for (let i = 0; i < raids.length; i++) {

@@ -12,7 +12,7 @@ export const ballsInsideBalls = (p: p5) => {
   p.setup = () => {
     const canvas = p.createCanvas(getCanvasWidth(p), getCanvasHeight(p));
     canvas.parent("sketch-holder");
-    p.frameRate(30);
+    p.frameRate(60);
     balls = createBalls(p);
   };
 
