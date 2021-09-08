@@ -5,23 +5,26 @@ import { getCanvasWidth, getCanvasHeight } from "./utils";
 
 function createBalls(p: p5) {
   const balls: Ball[] = [];
-  const numbers = _.range(
+  const raids = _.range(
     25,
     p.min(getCanvasWidth(p) - 50, getCanvasHeight(p) - 50),
-    60
+    20
   );
 
-  for (let i = 0; i < numbers.length; i++) {
+  const ballsCount = raids.length;
+  console.log("--  ballsCount: ", ballsCount);
+
+  for (let i = 0; i < raids.length; i++) {
     const xCenter = getCanvasWidth(p) / 2;
     const yCenter = getCanvasHeight(p) / 2;
-    const r = numbers[i];
+    const r = raids[i];
 
     const ball = new Ball({
       p,
       width: xCenter,
       height: yCenter,
       raid: r,
-      defaultBgColor: i * -22,
+      defaultBgColor: i * 10,
     });
     balls.push(ball);
   }

@@ -9,8 +9,8 @@ export class Ball {
 
   stroke_subtractor: number;
   bgColor: number;
-  bgColorVelocity: number = +5;
-  BG_COLOR_VELOCITY_UP: number = +10;
+  bgColorVelocity: number = -5;
+  BG_COLOR_VELOCITY_UP: number = +5;
   BG_COLOR_VELOCITY_DOWN: number = -5;
 
   constructor({
@@ -31,7 +31,7 @@ export class Ball {
     this.width = width;
     this.height = height;
     this.raid = raid;
-    this.stroke_subtractor = -30;
+    this.stroke_subtractor = -10;
     this.bgColor = defaultBgColor;
   }
 
@@ -48,12 +48,16 @@ export class Ball {
   }
 
   paint() {
+    const r = (this.bgColor + 10 + this.stroke_subtractor) % 255;
+    const g = (this.bgColor + 10 + this.stroke_subtractor) % 255;
+    const b = (this.bgColor + 20 + this.stroke_subtractor) % 255;
+
     this.p.stroke(
-      (this.bgColor + this.stroke_subtractor) % 255,
-      (this.bgColor + this.stroke_subtractor) % 255,
-      (this.bgColor + this.stroke_subtractor) % 255
+      r + this.stroke_subtractor,
+      g + this.stroke_subtractor,
+      b + this.stroke_subtractor
     );
-    this.p.fill(this.bgColor, this.bgColor, this.bgColor);
+    this.p.fill(r, g, b);
     this.p.ellipse(this.width, this.height, this.raid);
   }
 }
