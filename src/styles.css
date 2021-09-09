@@ -1,8 +1,20 @@
 body {
-  background-color: black;
+  background-color: #222;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+h1 {
+  margin: 0.2em;
+  padding: 0;
+}
+
+h1 a {
+  color: rgb(206, 19, 56);
+  font-size: 1em;
+  margin: 0.2em;
+  padding: 0;
 }
 
 .container {
@@ -10,14 +22,18 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin: 0.2em;
 }
 
-#experiments {
+.experiments {
   display: none;
+  justify-content: center;
+  flex-direction: column;
+  margin: 1em 0;
 }
 
-a {
-  color: blueviolet;
-  font-size: 1.3em;
-  padding: 0 0.5em;
+.experiments a {
+  color: rgb(209, 109, 27);
+  font-size: 1.2em;
+  margin: 0.3em 0;
 }
