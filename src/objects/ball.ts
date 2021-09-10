@@ -1,88 +1,94 @@
 import p5 from 'p5'
 
 export class Ball {
-  p: p5
+  _p: p5
 
-  width: number
-  height: number
+  position: p5.Vector
   raid: number
 
-  stroke_subtractor: number
-  bgColor: number
-  defaultBgColor: number
+  body: {
+    stroke_subtractor: number
+    bgColor: number
+    defaultBgColor: number
 
-  color_velocity: number = 1
+    color_velocity: number
 
-  bgColorRedVelocity: number = -this.color_velocity
-  bgColorRed: number
+    bgColorRedVelocity: number
+    bgColorRed: number
 
-  bgColorGreenVelocity: number = -this.color_velocity
-  bgColorGreen: number
+    bgColorGreenVelocity: number
+    bgColorGreen: number
 
-  bgColorBlueVelocity: number = -this.color_velocity
-  bgColorBlue: number
+    bgColorBlueVelocity: number
+    bgColorBlue: number
+  }
 
   constructor({
-    p,
-    width,
-    height,
+    _p: p,
+    position,
     raid,
     defaultBgColor,
   }: {
-    p: p5
-    width: number
-    height: number
+    _p: p5
+    position: p5.Vector
     raid: number
     defaultBgColor: number
   }) {
-    this.p = p
+    this._p = p
 
-    this.width = width
-    this.height = height
+    this.position = this._p.createVector(position.x, position.y)
+
     this.raid = raid
-    this.stroke_subtractor = -15
-    this.defaultBgColor = defaultBgColor
-    this.bgColor = defaultBgColor
-    this.bgColorRed = defaultBgColor + 0
-    this.bgColorGreen = defaultBgColor + 20
-    this.bgColorBlue = defaultBgColor + 40
+
+    this.body = {
+      color_velocity: 1,
+      bgColorRedVelocity: -1,
+      bgColorGreenVelocity: -1,
+      bgColorBlueVelocity: -1,
+      stroke_subtractor: -15,
+      defaultBgColor: defaultBgColor,
+      bgColor: defaultBgColor,
+      bgColorRed: defaultBgColor + 0,
+      bgColorGreen: defaultBgColor + 20,
+      bgColorBlue: defaultBgColor + 40,
+    }
   }
 
   changeColorWithVelocity() {
     // change direction
-    if (this.bgColorRed <= -60) {
-      this.bgColorRed = 0
-      this.bgColorRedVelocity = this.bgColorRedVelocity * -1
-    } else if (this.bgColorRed >= 255) {
-      this.bgColorRedVelocity = this.bgColorRedVelocity * -1
+    if (this.body.bgColorRed <= -60) {
+      this.body.bgColorRed = 0
+      this.body.bgColorRedVelocity = this.body.bgColorRedVelocity * -1
+    } else if (this.body.bgColorRed >= 255) {
+      this.body.bgColorRedVelocity = this.body.bgColorRedVelocity * -1
     }
-    if (this.bgColorGreen <= -50) {
-      this.bgColorGreen = 0
-      this.bgColorGreenVelocity = this.bgColorGreenVelocity * -1
-    } else if (this.bgColorGreen >= 255) {
-      this.bgColorGreenVelocity = this.bgColorGreenVelocity * -1
+    if (this.body.bgColorGreen <= -50) {
+      this.body.bgColorGreen = 0
+      this.body.bgColorGreenVelocity = this.body.bgColorGreenVelocity * -1
+    } else if (this.body.bgColorGreen >= 255) {
+      this.body.bgColorGreenVelocity = this.body.bgColorGreenVelocity * -1
     }
-    if (this.bgColorBlue <= -40) {
-      this.bgColorBlue = 0
-      this.bgColorBlueVelocity = this.bgColorBlueVelocity * -1
-    } else if (this.bgColorBlue >= 255) {
-      this.bgColorBlueVelocity = this.bgColorBlueVelocity * -1
+    if (this.body.bgColorBlue <= -40) {
+      this.body.bgColorBlue = 0
+      this.body.bgColorBlueVelocity = this.body.bgColorBlueVelocity * -1
+    } else if (this.body.bgColorBlue >= 255) {
+      this.body.bgColorBlueVelocity = this.body.bgColorBlueVelocity * -1
     }
 
     // apply velocity on color
-    this.bgColorRed = this.bgColorRed + this.bgColorRedVelocity
-    this.bgColorGreen = this.bgColorGreen + this.bgColorGreenVelocity
-    this.bgColorBlue = this.bgColorBlue + this.bgColorBlueVelocity
+    this.body.bgColorRed = this.body.bgColorRed + this.body.bgColorRedVelocity
+    this.body.bgColorGreen = this.body.bgColorGreen + this.body.bgColorGreenVelocity
+    this.body.bgColorBlue = this.body.bgColorBlue + this.body.bgColorBlueVelocity
   }
 
   paint() {
-    this.p.stroke(
-      this.bgColorRed + this.stroke_subtractor,
-      this.bgColorGreen + this.stroke_subtractor,
-      this.bgColorBlue + this.stroke_subtractor
+    this._p.stroke(
+      this.body.bgColorRed + this.body.stroke_subtractor,
+      this.body.bgColorGreen + this.body.stroke_subtractor,
+      this.body.bgColorBlue + this.body.stroke_subtractor
     )
-    this.p.fill(this.bgColorRed, this.bgColorGreen, this.bgColorBlue)
-    this.p.ellipse(this.width, this.height, this.raid)
+    this._p.fill(this.body.bgColorRed, this.body.bgColorGreen, this.body.bgColorBlue)
+    this._p.ellipse(this.position.x, this.position.y, this.raid)
 
     // console.log({
     //   bgColorRed: this.bgColorRed,

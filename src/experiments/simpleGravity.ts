@@ -15,7 +15,7 @@ export const simpleGravity = (p: p5) => {
   p.setup = () => {
     const canvas = p.createCanvas(getCanvasWidth(p), getCanvasHeight(p))
     canvas.parent('sketch-holder')
-    p.frameRate(60)
+    // p.frameRate(60)
 
     yVal = 0
     velocity = 0
@@ -36,7 +36,7 @@ export const simpleGravity = (p: p5) => {
 
     if (yVal > p.height - mass / 2) {
       // A little dampening when hitting the bottom
-      velocity *= -0.9
+      velocity *= -0.6
       yVal = p.height - mass / 2
     }
   }

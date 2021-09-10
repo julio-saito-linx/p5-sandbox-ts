@@ -16,9 +16,8 @@ export function createBalls(p: p5) {
     const r = raids[i]
 
     const ball = new Ball({
-      p,
-      width: xCenter,
-      height: yCenter,
+      _p: p,
+      position: p.createVector(xCenter, yCenter),
       raid: r,
       defaultBgColor: i * increment_color,
     })
