@@ -7,21 +7,24 @@ import { createBalls } from '../objects/createBalls'
  * @param {p5} p
  */
 export const simpleGravity = (p: p5) => {
-  var yVal: number
-  var accel: number
-  var velocity: number
-  var mass: number
+  let ball: Ball
 
   p.setup = () => {
     const canvas = p.createCanvas(getCanvasWidth(p), getCanvasHeight(p))
     canvas.parent('sketch-holder')
     // p.frameRate(60)
 
-    yVal = 0
-    velocity = 0
-    mass = 40
+    ball = new Ball({
+      _p: p,
+      position: p.createVector(getCanvasWidth(p) / 2, 0),
+      velocity: p.createVector(0, 0),
+      accel: p.createVector(0, 0),
+      raid: 30,
+      mass: 40,
+      defaultBgColor: 30,
+    })
 
-    accel = mass * 0.1
+    ball.accel.set(0, ball.mass * 0.1)
     // balls = createBalls(p);
   }
 
@@ -30,14 +33,15 @@ export const simpleGravity = (p: p5) => {
 
     p.fill(255, 0, 0)
 
-    velocity += accel
-    yVal += velocity
-    p.ellipse(p.width / 2, yVal, mass, mass)
+    ball.velocity.add(ball.accel)
+    ball.position.add(ball.velocity)
+    ball.paint()
+    // p.ellipse(p.width / 2, ball.position.y, ball.mass, ball.mass)
 
-    if (yVal > p.height - mass / 2) {
+    if (ball.position.y > p.height - ball.mass / 2) {
       // A little dampening when hitting the bottom
-      velocity *= -0.6
-      yVal = p.height - mass / 2
+      ball.velocity.y *= -0.6
+      ball.position.y = p.height - ball.mass / 2
     }
   }
 
@@ -46,7 +50,8 @@ export const simpleGravity = (p: p5) => {
   }
 
   p.mousePressed = () => {
-    yVal = 0
-    velocity = 0
+    ball.position.x = p.mouseX
+    ball.position.y = p.mouseY
+    ball.velocity.y = 0
   }
 }

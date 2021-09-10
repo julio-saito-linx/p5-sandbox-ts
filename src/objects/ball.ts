@@ -4,7 +4,10 @@ export class Ball {
   _p: p5
 
   position: p5.Vector
+  velocity?: p5.Vector
+  accel?: p5.Vector
   raid: number
+  mass?: number
 
   body: {
     stroke_subtractor: number
@@ -26,19 +29,28 @@ export class Ball {
   constructor({
     _p: p,
     position,
+    velocity,
+    accel,
     raid,
+    mass,
     defaultBgColor,
   }: {
     _p: p5
     position: p5.Vector
+    velocity?: p5.Vector
+    accel?: p5.Vector
     raid: number
+    mass?: number
     defaultBgColor: number
   }) {
     this._p = p
 
-    this.position = this._p.createVector(position.x, position.y)
+    this.position = position
+    this.velocity = velocity
+    this.accel = accel
 
     this.raid = raid
+    this.mass = mass
 
     this.body = {
       color_velocity: 1,
