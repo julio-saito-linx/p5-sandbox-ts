@@ -18,31 +18,44 @@ export const simpleGravity = (p: p5) => {
       _p: p,
       position: p.createVector(getCanvasWidth(p) / 2, 0),
       velocity: p.createVector(0, 0),
-      accel: p.createVector(0, 0),
+      acceleration: p.createVector(0, 0),
       raid: 30,
-      mass: 40,
+      mass: 1,
       defaultBgColor: 30,
     })
-
-    ball.accel.set(0, ball.mass * 0.1)
-    // balls = createBalls(p);
   }
+
+  const gravity = p.createVector(0, 0.6)
+  const wind = p.createVector(0.2, 0)
 
   p.draw = () => {
     p.background(0)
 
     p.fill(255, 0, 0)
 
-    ball.velocity.add(ball.accel)
-    ball.position.add(ball.velocity)
-    ball.paint()
-    // p.ellipse(p.width / 2, ball.position.y, ball.mass, ball.mass)
+    ball.applyForce(gravity)
+    ball.applyForce(wind)
 
-    if (ball.position.y > p.height - ball.mass / 2) {
+    if (ball.position.y > p.height - ball.raid / 2) {
       // A little dampening when hitting the bottom
-      ball.velocity.y *= -0.6
-      ball.position.y = p.height - ball.mass / 2
+      ball.velocity.y *= -0.7
+      ball.position.y = p.height - ball.raid / 2
     }
+    if (ball.position.x > p.width - ball.raid / 2) {
+      // A little dampening when hitting the bottom
+      ball.velocity.x *= -0.4
+      ball.position.x = p.width - ball.raid / 2
+      wind.rotate(180)
+    }
+    if (ball.position.x < 0 + ball.raid / 2) {
+      // A little dampening when hitting the bottom
+      ball.velocity.x *= -0.4
+      ball.position.x = 0 + ball.raid / 2
+      wind.rotate(180)
+    }
+
+    ball.changeColorByVelocity()
+    ball.paint()
   }
 
   p.windowResized = () => {

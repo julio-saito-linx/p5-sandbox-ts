@@ -5,7 +5,7 @@ export class Ball {
 
   position: p5.Vector
   velocity?: p5.Vector
-  accel?: p5.Vector
+  acceleration?: p5.Vector
   raid: number
   mass?: number
 
@@ -30,7 +30,7 @@ export class Ball {
     _p: p,
     position,
     velocity,
-    accel,
+    acceleration: accel,
     raid,
     mass,
     defaultBgColor,
@@ -38,7 +38,7 @@ export class Ball {
     _p: p5
     position: p5.Vector
     velocity?: p5.Vector
-    accel?: p5.Vector
+    acceleration?: p5.Vector
     raid: number
     mass?: number
     defaultBgColor: number
@@ -47,7 +47,7 @@ export class Ball {
 
     this.position = position
     this.velocity = velocity
-    this.accel = accel
+    this.acceleration = accel
 
     this.raid = raid
     this.mass = mass
@@ -91,6 +91,25 @@ export class Ball {
     this.body.bgColorRed = this.body.bgColorRed + this.body.bgColorRedVelocity
     this.body.bgColorGreen = this.body.bgColorGreen + this.body.bgColorGreenVelocity
     this.body.bgColorBlue = this.body.bgColorBlue + this.body.bgColorBlueVelocity
+  }
+
+  changeColorByVelocity() {
+    // change direction
+    if (this.velocity.y > 0) {
+      this.body.bgColorRed = 167
+    } else {
+      this.body.bgColorRed = 67
+    }
+    if (this.velocity.x > 0) {
+      this.body.bgColorGreen = 255
+    } else {
+      this.body.bgColorGreen = 130
+    }
+  }
+
+  applyForce(force: p5.Vector) {
+    this.velocity.add(force.div(this.mass))
+    this.position.add(this.velocity)
   }
 
   paint() {
