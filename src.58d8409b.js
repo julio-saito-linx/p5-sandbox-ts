@@ -35,4 +35,4 @@ var n,t=arguments[3],r=require("buffer").Buffer;(function(){var r,e=200,u="Unsup
 },{"../objects/ball":"VMzW","../utils":"UldJ"}],"B6dB":[function(require,module,exports) {
 "use strict";var e=this&&this.__importDefault||function(e){return e&&e.__esModule?e:{default:e}};Object.defineProperty(exports,"__esModule",{value:!0});var t=e(require("p5")),o=require("./experiments/ballsInsideBalls"),i=require("./experiments/simpleGravity");document.location.href!==document.location.origin+"/p5-sandbox-ts"&&document.location.href!==document.location.origin+"/"||(document.querySelector(".experiments").style.display="flex"),document.location.href===document.location.origin+"/p5-sandbox-ts/ballsInsideBalls"&&new t.default(o.ballsInsideBalls),document.location.href===document.location.origin+"/p5-sandbox-ts/simpleGravity"&&new t.default(i.simpleGravity);
 },{"p5":"rnl4","./experiments/ballsInsideBalls":"LSOv","./experiments/simpleGravity":"fLE5"}]},{},["B6dB"], null)
-//# sourceMappingURL=/src.58d8409b.js.map
+//# sourceMappingURL=https://saitodisse.github.io/p5-sandbox-ts/src.58d8409b.js.map
